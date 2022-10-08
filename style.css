@@ -1,0 +1,86 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+    color: #363636;
+}
+
+::selection {
+    background: #cef037;
+    color: rgb(31, 31, 31);
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.bg {
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: rgba(183,140,241,1);
+}
+
+.wrapper {
+    max-width: 1200px;
+    min-height: 100vh;
+    padding: 15px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    background-color: #fff;
+    width: 60%;
+    padding: 25px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 0 0 2px #363636, 15px 15px 0 0 #363636;
+}
+
+.content__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-item-form {
+    margin: 15px 0;
+}
+
+.add-item-form input[type="text"] {
+    border: none;
+    padding: 5px 0;
+    border-bottom: 2px solid #363636;
+}
+
+.add-item-form input[type="text"]:focus {
+    outline: none;
+}
+
+.add-item-form input[type="submit"] {
+    display: inline-block;
+    border: 2px solid #363636;
+    border-radius: 8px;
+    padding: 5px 15px;
+    background-color: #cef037;
+    cursor: pointer;
+}
+
+.todo-list {
+    margin: 40px 0;
+    list-style: none;
+}
+
+.todo-list li {
+    margin: 10px 0;
+}
+
+.li-checked {
+    text-decoration: line-through;
+}
