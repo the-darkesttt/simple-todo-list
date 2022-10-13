@@ -9,17 +9,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/27e68878a7.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="bg">
         <div class="wrapper">
             <div class="content">
                 <div class="content__header">
-                    <h1>Todo list</h1>
-                    <form class="add-item-form">
-                        <input type="text" name="textInput" id="">
-                        <input type="submit" value="Add task">
-                    </form>
+                    <div class="header-top">
+                        <h1 class="todo-title">Todo list</h1>
+                        <form class="add-item-form">
+                            <input type="text" name="textInput" placeholder="Your task">
+                            <input type="submit" value="Add task">
+                        </form>
+                    </div>
+                    <div class="todo-filtration">
+
+                        <input type="radio" name="filtration" id="taskFiltration1" value="All">
+                        <label for="taskFiltration1">
+                            All
+                        </label>
+
+                        <input type="radio" name="filtration" id="taskFiltration2" value="Finished">
+                        <label for="taskFiltration2">
+                            Finished
+                        </label>
+
+                        <input type="radio" name="filtration" id="taskFiltration3" value="Unfinished">
+                        <label for="taskFiltration3">
+                            Unfinished
+                        </label>
+
+                    </div>
                 </div>
                 <ul class="todo-list"></ul>
             </div>

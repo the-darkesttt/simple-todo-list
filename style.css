@@ -45,8 +45,42 @@ body {
 
 .content__header {
     display: flex;
+    flex-direction: column;
+
+    border-bottom: 2px dashed #cecece;
+    padding-bottom: 20px;
+}
+
+.header-top {
+    display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.todo-filtration {
+    display: flex;
+    gap: 14px;
+    margin: 10px 0 0 0 ;
+}
+
+.todo-filtration label {
+    border: 2px solid #363636;
+    background-color: #363636;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 30px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.todo-filtration input[type="radio"] {
+    display: none;
+}
+
+.todo-filtration input[type="radio"]:checked + label {
+    background-color: #cef037;
+    color: #363636;
 }
 
 .add-item-form {
@@ -70,6 +104,15 @@ body {
     padding: 5px 15px;
     background-color: #cef037;
     cursor: pointer;
+
+    box-shadow: 4px 4px 0 0 #363636;
+    transition: .3s;
+}
+
+.add-item-form input[type="submit"]:hover {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0 0 #363636;
+
 }
 
 .todo-list {
@@ -78,9 +121,59 @@ body {
 }
 
 .todo-list li {
-    margin: 10px 0;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    word-break: break-all;
+}
+
+.todo-list li:hover {
+    background-color: rgb(244, 236, 247);
+}
+
+.close-icon {
+    color: rgb(231, 48, 48);
+    font-size: 20px;
+    opacity: 0;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.todo-list li:hover .close-icon {
+    opacity: 1;
 }
 
 .li-checked {
     text-decoration: line-through;
+}
+
+/* media queries -------------- */
+
+@media screen and (max-width: 1044px) {
+    .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .todo-filtration {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .close-icon {
+        opacity: .7;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper {
+        padding: 25px;
+    }
+    .content {
+        width: auto;
+    }
 }

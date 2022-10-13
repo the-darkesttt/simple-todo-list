@@ -1,15 +1,24 @@
 const addItemForm = document.querySelector('.add-item-form');
 const todoTasksList = document.querySelector('.todo-list');
+const todoTitle = document.querySelector('.todo-title');
+const todoFilters = document.querySelector('.todo-filtration');
+const filterRadioBtns = document.querySelectorAll('.todo-filtration input[type="radio"]');
 
 const taskReference = {
     text: 'Feed the cat',
     checked: false,
 };
-const todoTasks = JSON.parse(localStorage.getItem('todoTasks')) || [taskReference];
 
-addItemForm.addEventListener('submit', event => {
+let todoTasks = JSON.parse(localStorage.getItem('todoTasks')) || [taskReference];
 
-    event.preventDefault();
+function update() {
+    localStorage.setItem('todoTasks', JSON.stringify(todoTasks));
+    generateTask(filterTasks('All'), todoTasksList);
+    filterRadioBtns.forEach(btn => btn.value != 'All' ? btn.checked = false : btn.checked = true);
+    todoTitle.innerHTML = `Todo list (${todoTasks.length})`;
+}
+
+function addTask(event) {
     const taskText = event.target.textInput.value;
 
     if (taskText != '') {
@@ -18,13 +27,14 @@ addItemForm.addEventListener('submit', event => {
             checked: false,
         };
         todoTasks.push(itemTask);
-        localStorage.setItem('todoTasks', JSON.stringify(todoTasks));
-        generateTask(todoTasks, todoTasksList);
-    
-        console.log(itemTask)
-        console.log(todoTasks)
+        update();
     }
-    
+}
+
+addItemForm.addEventListener('submit', event => {
+
+    event.preventDefault();
+    addTask(event);
     event.target.reset();
 
 });
@@ -37,6 +47,7 @@ function generateTask(tasks, tasksList) {
                 <input type="checkbox" data-index='${index}' ${task.checked ? 'checked' : ''}>
                 ${task.text}
             </label>
+            <i class="fa-solid fa-circle-xmark close-icon" data-index='${index}'></i>
         </li>
         `;
     }).join('');
@@ -44,16 +55,37 @@ function generateTask(tasks, tasksList) {
 
 todoTasksList.addEventListener('click', ({target}) => {
     
-    if (target.tagName != 'LABEL') {
+    if (target.tagName === 'INPUT') {
         const clickedTaskId = target.dataset.index;
         todoTasks[clickedTaskId].checked = !todoTasks[clickedTaskId].checked;
-        localStorage.setItem('todoTasks', JSON.stringify(todoTasks));
-        generateTask(todoTasks, todoTasksList);
+        update();
+    }
+    if (target.tagName === 'I') {
+        const clickedTaskId = target.dataset.index;
+        todoTasks.splice(clickedTaskId, 1);
+        update();
+    }
+
+});
+
+todoFilters.addEventListener('click', ({target}) => {
+    if (target.tagName === 'INPUT') {
+        const selectedFilter = target.value;
+        generateTask(filterTasks(selectedFilter), todoTasksList);
     }
 });
 
-function displayTasks() {
-    generateTask(todoTasks, todoTasksList);
-}
+function filterTasks(filter) {
+    const tasksCopy = [...todoTasks];
 
-displayTasks();
+    switch(filter) {
+        case 'All':
+            return tasksCopy;
+        case 'Unfinished':
+            return tasksCopy.filter(task => task.checked == false);
+        case 'Finished':
+            return tasksCopy.filter(task => task.checked == true);
+    }
+}   
+
+update();
